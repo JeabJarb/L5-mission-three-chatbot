@@ -1,24 +1,21 @@
+require("dotenv").config();
+const express = require("express");
 const cors = require('cors');
-const express = require('express');
+const bodyParser = require("body-parser");
+const chatbotRouter = require("./routes/chatbotRoutes");
+
+const PORT = process.env.PORT || 3000;
 const app = express();
-require('dotenv').config();
-
-
 
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
-const chatbotRoutes = require('./routes/chatbotRoutes');
-
-app.get('/', (req, res) => {
-    res.send('Backend is function 👨‍🍳🍽');
+app.get("/", (req, res) => {
+  res.send("Backend is function 👨‍🍳🍽");
 });
 
-app.use('/api/chatbot', chatbotRoutes);
+app.use('/api/chatbot', chatbotRouter);
 
-
-
-const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
